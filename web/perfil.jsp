@@ -28,10 +28,16 @@
             HttpSession sesion = request.getSession();
             ListaSEAdulto adultos = (ListaSEAdulto)sesion.getAttribute("misAdultos");
 
-            int index = Integer.parseInt(request.getParameter("adultoElegido"));
-             Integer indice = new Integer(index);
-             sesion.setAttribute("indice", indice);
-            
+            String indiceAuxiliar = request.getParameter("indiceAuxiliar");
+            int index;
+            if (indiceAuxiliar == null){
+                index = Integer.parseInt(request.getParameter("adultoElegido"));
+                Integer indice = new Integer(index);
+                sesion.setAttribute("indice", indice);
+            } else {
+               index = Integer.parseInt(indiceAuxiliar); 
+            }
+                         
             if (adultos.obtener(index).medicamentosVacio() == true){
                 ListaSEMedicamento medicamentos = new ListaSEMedicamento();
                 adultos.obtener(index).setMedicamentos(medicamentos);
@@ -44,6 +50,22 @@
                 adultos.obtener(index).setActividades(actividades);
                 String listaActi = "lasActividades" + String.valueOf(index);
                 sesion.setAttribute(listaActi, actividades);
+            }
+            
+            if(request.getParameter("identificacion") != null){
+                adultos.obtener(index).setIdentificacion(request.getParameter("identificacion"));
+            }
+            if(request.getParameter("nombre") != null){
+                adultos.obtener(index).setNombre(request.getParameter("nombre"));
+            }
+            if(request.getParameter("apellidos") != null){
+                adultos.obtener(index).setApellidos(request.getParameter("apellidos"));
+            }
+            if(request.getParameter("numero_habitacion") != null){
+                adultos.obtener(index).setNumero_habitacion(request.getParameter("numero_habitacion"));
+            }
+            if(request.getParameter("encargado") != null){
+                adultos.obtener(index).setEncargado(request.getParameter("encargado"));
             }
         %>
 
@@ -61,12 +83,18 @@
                     <h3 class="titulo"><%=adultos.obtener(index).nombre%> <%=adultos.obtener(index).apellidos%></h3>
                     <div class="veen2">
                         <div class="submit">
-                            <button class="dark"><a href="#" style="text-decoration: none" class="dark text-dark">Modificar datos</a></button>
+                            <form action="modificarAdultoMayor.jsp" method="post">
+                                <button type="submit" name="modificar" value="<%=index%>" class="dark">
+                                    Modificar datos</button>
+                            </form>
                         </div>
                     </div>
                     <div class="veen3">
                         <div class="submit">
-                            <button class="dark"><a href="#" style="text-decoration: none" class="dark text-dark">Eliminar adulto mayor</a></button>
+                            <form action="adultosMayores.jsp" method="post">
+                                <button type="submit" name="eliminado" value="<%=index%>" class="dark">
+                                    Eliminar adulto mayor</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -75,7 +103,7 @@
                         <li><i class="icono fas fa-user-check"></i> Nombres: <%=adultos.obtener(index).nombre%></li>
                         <li><i class="icono fas fa-user-check"></i> Apellidos: <%=adultos.obtener(index).apellidos%></li>   
                         <li><i class="icono fas fa-address-card"></i> Identificación: <%=adultos.obtener(index).getIdentificacion()%></li>
-                        
+
 
                         <div class="veen">
                             <div class="submit">
@@ -88,7 +116,7 @@
                         <li><i class="icono fas fa-briefcase"></i>Encargado: <%=adultos.obtener(index).getEncargado()%></li>
                         <li><i class="icono fas fa-ambulance"></i>Teléfono urgencias: 125 </li>
                         <h1> </h1>
-                       
+
 
                         <div class="veen">
                             <div class="submit">

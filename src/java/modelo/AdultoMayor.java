@@ -22,6 +22,18 @@ public class AdultoMayor extends AbstractPersona {
         this.medicamentos = medicamentos;
     }
 
+    public void setIdentificacion(String identificacion) {
+        this.identificacion = identificacion;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
     public ListaSEActividad getActividades() {
         return actividades;
     }
@@ -84,6 +96,10 @@ public class AdultoMayor extends AbstractPersona {
 
     public String getFicha_medica() {
         return ficha_medica;
+    }
+
+    public void setEncargado(String encargado) {
+        this.encargado = encargado;
     }
 
     public void setFicha_medica(String ficha_medica) {

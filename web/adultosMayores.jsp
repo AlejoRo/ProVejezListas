@@ -42,13 +42,17 @@
             String numero_habitacion = request.getParameter("numero_habitacion");
             String encargado = request.getParameter("encargado");
             String ficha_medica = request.getParameter("ficha_medica");
+            String eliminado = request.getParameter("eliminado");
 
+            if(eliminado != null){
+                int adultoAEliminar = Integer.parseInt (eliminado);
+                adultos.eliminar(adultoAEliminar);
+            }
             if(nombre != null){
                 AdultoMayor adulto = new AdultoMayor(identificacion, nombre, apellidos, numero_habitacion,
                     encargado, ficha_medica, null, null);
                 //sesion.setAttribute("adultino", adulto);
-                adultos.agregar(adulto);
-                
+                adultos.agregar(adulto);                
             }            
             //out.println(adulto);
         %>
